@@ -1,0 +1,17 @@
+# require 'activemodel'
+require 'oauth'
+require 'rspec'
+require 'faraday'
+require 'json'
+require 'webmock/rspec'
+require 'rake'
+require 'rspec'
+require 'shoulda-matchers'
+
+require 'launchy'
+require 'consumer'
+require './env'
+require 'vcr'
+require 'fakeweb'
+
+require 'user'
