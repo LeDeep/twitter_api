@@ -4,18 +4,18 @@ require 'launchy'
 require 'pry'
 require './env'
 require './lib/user'
-require './lib/feed'
+
  
 def welcome
   puts "Welcome to the Epicodus Twitter client."
-  user = User.new
+  @user = User.new
   puts 'To use TwitterCommandLine, you need to grant access to the app.'
   puts 'Press enter to launch your web browser and grant access.'
   gets
-  Launchy.open user.authorize_url
+  Launchy.open @user.authorize_url
   puts 'Now, copy the PIN below and press enter:'
   oauth_verifier = gets.chomp
-  user.authorize!(oauth_verifier)
+  @user.authorize!(oauth_verifier)
   # user.settings
   menu
 end
@@ -30,7 +30,8 @@ def menu
 
     case choice = gets.chomp
     when 'v'
-      timeline
+      results = @user.view_feed
+      results.map {|tweet| puts "\n" + tweet }
     when 't'
       tweet
     when 'f'
@@ -46,12 +47,6 @@ def menu
     end
   end
 end
-
-def timeline
-  feed = Feed.new('218233348-tW216zddcfAE5omuCK9vdjQZ4NGtgOIkekU0QvxQ')
-  feed.view_feed
-end
-
 
 
 

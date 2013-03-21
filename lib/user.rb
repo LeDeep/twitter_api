@@ -18,17 +18,23 @@ class User
   end
 
 
-  # def settings
-  #   #foo = @access_token.get('https://api.twitter.com/1.1/account/settings.json')
-  #   #binding.pry
+  def settings
+    response = @access_token.get('https://api.twitter.com/1.1/account/settings.json')
+    JSON.parse(response.body)
 
-  #   p response = @access_token.get('https://api.twitter.com/1.1/account/settings.json')
-  #   p JSON.parse(response.body)
+  end
+
+
+  def view_feed
+    timeline = @access_token.get('https://api.twitter.com/1.1/statuses/home_timeline.json')
+    responses = JSON.parse(timeline.body)
+    responses.map {|response| "@" + response['user']['screen_name'] + ": " + response['text']}
+  end
+
+  # def tweet
+
 
   # end
-
-
-
 
 
 end

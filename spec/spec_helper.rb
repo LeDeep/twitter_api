@@ -15,4 +15,3 @@ require 'vcr'
 require 'fakeweb'
 
 require 'user'
-require 'feed'
