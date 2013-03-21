@@ -1,14 +1,11 @@
-
+require 'json'
 require 'oauth'
 require 'launchy'
+require 'pry'
 require './env'
 require './lib/user'
+require './lib/feed'
  
-CALLBACK_URL = 'oob'
- 
-
-
-
 def welcome
   puts "Welcome to the Epicodus Twitter client."
   user = User.new
@@ -19,6 +16,7 @@ def welcome
   puts 'Now, copy the PIN below and press enter:'
   oauth_verifier = gets.chomp
   user.authorize!(oauth_verifier)
+  # user.settings
   menu
 end
 
@@ -26,13 +24,13 @@ def menu
   choice = nil
   until choice == 'x'
     puts "What would you like to do?"
-    puts "Press 'v' to view tweets in your timeline, 't' to send a tweet, 'f' to view who is following you, 'm' to view who you are following\
+    puts "Press 'v' to view tweets in your feed, 't' to send a tweet, 'f' to view who is following you, 'm' to view who you are following\
           or 'n' to follow a new account."
     puts "Press 'x' to exit."
 
     case choice = gets.chomp
     when 'v'
-      view_timeline
+      timeline
     when 't'
       tweet
     when 'f'
@@ -48,6 +46,12 @@ def menu
     end
   end
 end
+
+def timeline
+  feed = Feed.new('218233348-tW216zddcfAE5omuCK9vdjQZ4NGtgOIkekU0QvxQ')
+  feed.view_feed
+end
+
 
 
 
