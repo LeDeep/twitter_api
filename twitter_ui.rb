@@ -26,7 +26,7 @@ def menu
   until choice == 'x'
     puts "\nWhat would you like to do?"
     puts "Press 'v' to view tweets in your feed, 't' to send a tweet, 'f' to view who is following you, 'm' to view who you are following\
-          or 'n' to follow a new account."
+          or 'g' to see what topics are trending worldwide."
     puts "Press 'x' to exit."
 
     case choice = gets.chomp
@@ -47,8 +47,10 @@ def menu
       puts "Here is a list people who you follow: "
       results = @user.following
       results.map {|result| puts "\n" + result}
-    when 'n'
-      follow_new
+    when 'g'
+      puts "Here are the 10 most popular Twitter topics, based on Worldwide trends: "
+      results = @user.trending
+      results.map {|result| puts "\n" + result}
     when 'x'
       exit
     else

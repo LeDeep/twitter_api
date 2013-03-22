@@ -53,16 +53,13 @@ class User
     follows_users.map {|follow_user| "@" + follow_user["screen_name"]}
   end
 
-  # def search(topic, WOEID)
-  #   WOEID = 1
-  #   trends = @access_token.get("https://api.twitter.com/1.1/trends/place.json?id = WOEID")
-  #   trends_parse = JSON.parse(trends.body)
-  #   hash_object = Hash[*trends_parse.flatten]
-  #   subjects = hash_object["trends"]
-  #   subjects.map {|subject|}
-
-
-  # end
+  def trending
+    trends = @access_token.get("https://api.twitter.com/1.1/trends/place.json?id=1")
+    trends_parse = JSON.parse(trends.body)
+    hash_object = Hash[*trends_parse.flatten]
+    subjects = hash_object["trends"]
+    subjects.map {|subject| subject["name"]}
+  end
 
 
 end
