@@ -31,7 +31,35 @@ class User
     responses.map {|response| "@" + response['user']['screen_name'] + ": " + response['text']}
   end
 
-  # def tweet
+  def tweet(update)
+    post = @access_token.post('https://api.twitter.com/1.1/statuses/update.json', {:status => "#{update}"})
+    message = JSON.parse(post.body)
+    "@" + message['user']['screen_name'] + ": " + message['text']
+
+  end
+
+  def followers
+    people = @access_token.get('https://api.twitter.com/1.1/followers/list.json')
+    humans = JSON.parse(people.body)
+    friends = humans['users']
+    friends.map {|friend| "@" + friend['screen_name']} 
+     
+  end
+
+  def following
+    people = @access_token.get('https://api.twitter.com/1.1/friends/list.json')
+    follows = JSON.parse(people.body)
+    follows_users = follows["users"]
+    follows_users.map {|follow_user| "@" + follow_user["screen_name"]}
+  end
+
+  # def search(topic, WOEID)
+  #   WOEID = 1
+  #   trends = @access_token.get("https://api.twitter.com/1.1/trends/place.json?id = WOEID")
+  #   trends_parse = JSON.parse(trends.body)
+  #   hash_object = Hash[*trends_parse.flatten]
+  #   subjects = hash_object["trends"]
+  #   subjects.map {|subject|}
 
 
   # end

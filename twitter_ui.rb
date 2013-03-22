@@ -20,10 +20,11 @@ def welcome
   menu
 end
 
+
 def menu
   choice = nil
   until choice == 'x'
-    puts "What would you like to do?"
+    puts "\nWhat would you like to do?"
     puts "Press 'v' to view tweets in your feed, 't' to send a tweet, 'f' to view who is following you, 'm' to view who you are following\
           or 'n' to follow a new account."
     puts "Press 'x' to exit."
@@ -33,11 +34,19 @@ def menu
       results = @user.view_feed
       results.map {|tweet| puts "\n" + tweet }
     when 't'
-      tweet
+      puts "\nWhat would you like to tweet: "
+      update = gets.chomp
+      @user.tweet(update)
+      puts "\nHere is what you tweeted: "
+      puts "#{update}"
     when 'f'
-      view_followers
+      puts "Here is a list people who are following you: "
+      results = @user.followers
+      results.map {|result| puts "\n" + result}
     when 'm'
-      view_following
+      puts "Here is a list people who you follow: "
+      results = @user.following
+      results.map {|result| puts "\n" + result}
     when 'n'
       follow_new
     when 'x'
